@@ -21,4 +21,17 @@ test("populate table with expected metrics data", () => {
   const thNoOfRequests = screen.getByTestId("th-no-of-requests")
   expect(thIp).toBeInTheDocument()
   expect(thNoOfRequests).toBeInTheDocument()
+
+  const firstIp = screen.getByText("177.71.128.21")
+  const firstIpCount = screen.getByTestId("td-count-0")
+  expect(firstIp).toBeInTheDocument()
+  expect(firstIpCount).toHaveTextContent("3")
+
+  const secondIp = screen.getByText("168.41.191.40")
+  const secondIpCount = screen.getByTestId("td-count-1")
+  expect(secondIp).toBeInTheDocument()
+  expect(secondIpCount).toHaveTextContent("3")
+
+  const title = screen.getByText("Requests per IP Address")
+  expect(title).toBeInTheDocument()
 })
