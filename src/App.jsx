@@ -6,6 +6,7 @@ import "./App.css"
 
 const App = () => {
   const [error, setError] = React.useState("")
+  const [uniqueIps, setUniqueIps] = React.useState({})
 
   const handleUploadFileChange = async (files) => {
     if (!files) {
@@ -13,7 +14,9 @@ const App = () => {
       return
     }
     const uploadFileData = await new Response(files[0]).text()
-    parseLogData(uploadFileData)
+    const { uniqueIps } = parseLogData(uploadFileData)
+    console.log(uniqueIps)
+    setUniqueIps(uniqueIps)
   }
 
   return (
@@ -25,6 +28,18 @@ const App = () => {
       <FileUpload onLogFileChange={handleUploadFileChange} />
 
       {error && <p>{error}</p>}
+      {!error && Object.keys(uniqueIps).length > 0 && (
+        <div>
+          <p>Top 3 most active IP addresses</p>
+          <ol>
+            {Object.keys(uniqueIps)
+              .splice(0, 3)
+              .map((key) => {
+                return <li key={key}>{uniqueIps[key]?.ip}</li>
+              })}
+          </ol>
+        </div>
+      )}
     </div>
   )
 }
