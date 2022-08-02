@@ -34,5 +34,8 @@ export const generateUniqueIpsObj = (dataArray) => {
 export const parseLogData = (file) => {
   const fileData = file.split("\n")
   const uniqueIps = generateUniqueIpsObj(fileData)
-  console.log(uniqueIps)
+  // console.log(uniqueIps)
+  return {
+    uniqueIps,
+  }
 }
