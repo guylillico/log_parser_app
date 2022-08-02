@@ -9,7 +9,7 @@ test("parseLogData function returns ordered uniqueIps object", () => {
 168.41.191.34 - - [10/Jul/2018:22:01:17 +0200] "GET /faq/ HTTP/1.1" 200 3574 "-" "Mozilla/5.0 (X11; U; Linux x86_64; fr-FR) AppleWebKit/534.7 (KHTML, like Gecko) Epiphany/2.30.6 Safari/534.7"
 177.71.128.21 - - [10/Jul/2018:22:21:03 +0200] "GET /docs/manage-websites/ HTTP/1.1" 200 3574 "-" "Mozilla/5.0 (compatible; MSIE 10.6; Windows NT 6.1; Trident/5.0; InfoPath.2; SLCC1; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 2.0.50727) 3gpp-gba UNTRUSTED/1.0"`
 
-  const { uniqueIps } = parseLogData(mockLogData)
+  const { uniqueIps, uniqueUrls } = parseLogData(mockLogData)
 
   expect(uniqueIps).toEqual({
     0: {
@@ -23,6 +23,29 @@ test("parseLogData function returns ordered uniqueIps object", () => {
     2: {
       count: 1,
       ip: "168.41.191.34",
+    },
+  })
+
+  expect(uniqueUrls).toEqual({
+    0: {
+      count: 2,
+      url: "/faq/",
+    },
+    1: {
+      count: 2,
+      url: "/docs/manage-websites/",
+    },
+    2: {
+      count: 1,
+      url: "/intranet-analytics/",
+    },
+    3: {
+      count: 1,
+      url: "/blog/category/meta/",
+    },
+    4: {
+      count: 1,
+      url: "/blog/2018/08/survey-your-opinion-matters/",
     },
   })
 })
