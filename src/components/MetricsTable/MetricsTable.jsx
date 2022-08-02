@@ -1,12 +1,12 @@
 import React from "react"
-import { TableWrapper } from "./MetricsTable.styled"
 import { convertToSlug } from "../../util/logParser"
+import { TableWrapper, Table } from "./MetricsTable.styled"
 
 const MetricsTable = ({ title, body, header, metric }) => {
   return (
     <TableWrapper>
       <h3>{title}</h3>
-      <table>
+      <Table>
         <thead>
           <tr>
             {header.map((head) => {
@@ -28,7 +28,7 @@ const MetricsTable = ({ title, body, header, metric }) => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </TableWrapper>
   )
 }
