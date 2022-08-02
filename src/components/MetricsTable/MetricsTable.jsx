@@ -1,5 +1,6 @@
 import React from "react"
 import { TableWrapper } from "./MetricsTable.styled"
+import { convertToSlug } from "../../util/logParser"
 
 const MetricsTable = ({ title, body, header, metric }) => {
   return (
@@ -8,11 +9,14 @@ const MetricsTable = ({ title, body, header, metric }) => {
       <table>
         <thead>
           <tr>
-            {header.map((head) => (
-              <th data-testid={`th-${head}`} key={head}>
-                {head}
-              </th>
-            ))}
+            {header.map((head) => {
+              const headSlug = convertToSlug(head)
+              return (
+                <th data-testid={`th-${headSlug}`} key={headSlug}>
+                  {head}
+                </th>
+              )
+            })}
           </tr>
         </thead>
         <tbody>

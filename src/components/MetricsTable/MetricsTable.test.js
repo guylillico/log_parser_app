@@ -11,7 +11,7 @@ test("populate table with expected metrics data", () => {
       1: { count: 3, ip: "168.41.191.40" },
       2: { count: 1, ip: "168.41.191.34" },
     },
-    header: ["ip", "no-of-requests"],
+    header: ["IP", "No. of Requests"],
     metric: "ip",
   }
 
