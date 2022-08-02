@@ -1,3 +1,6 @@
+const IP_REGEX = /\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(.|$)){4}\b/
+const URL_REGEX = /[^\s]+(?=\s+HTTP)/
+
 export const orderByCount = (obj) => {
   const orderedItemsObj = {}
   const arr = Object.keys(obj).map((key) => obj[key])
@@ -10,11 +13,9 @@ export const orderByCount = (obj) => {
 
 export const generateUniqueIpsObj = (dataArray) => {
   const uniqueIpsObj = {}
-  const ipRegex = /\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(.|$)){4}\b/
 
   dataArray.forEach((item) => {
-    console.log(item)
-    const matchIp = item.match(ipRegex)
+    const matchIp = item.match(IP_REGEX)
     const ip = matchIp && matchIp.length ? matchIp[0] : null
 
     if (!ip || ip === "") return
@@ -33,10 +34,10 @@ export const generateUniqueIpsObj = (dataArray) => {
 
 export const generateUniqueUrlsObj = (dataArray) => {
   const uniqueUrlsObj = {}
-  // Match response path using positive lookahead
-  const urlRegex = /[^\s]+(?=\s+HTTP)/
+
   dataArray.forEach((item) => {
-    const matchUrl = item.match(urlRegex)
+    // Match response path using positive lookahead
+    const matchUrl = item.match(URL_REGEX)
     let url = matchUrl && matchUrl.length ? matchUrl[0].replace("http://example.net", "") : null
 
     if (!url) return
@@ -56,8 +57,6 @@ export const parseLogData = (file) => {
   const fileData = file.split("\n")
   const uniqueIps = generateUniqueIpsObj(fileData)
   const uniqueUrls = generateUniqueUrlsObj(fileData)
-
-  console.log(uniqueUrls)
 
   return {
     uniqueIps,
