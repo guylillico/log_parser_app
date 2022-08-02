@@ -8,6 +8,7 @@ const App = () => {
   const [error, setError] = React.useState("")
   const [uniqueIps, setUniqueIps] = React.useState({})
   const [totalUniqueIps, setTotalUniqueIps] = React.useState(0)
+  const [uniqueUrls, setUniqueUrls] = React.useState({})
 
   const handleUploadFileChange = async (files) => {
     if (!files) {
@@ -15,10 +16,11 @@ const App = () => {
       return
     }
     const uploadFileData = await new Response(files[0]).text()
-    const { uniqueIps } = parseLogData(uploadFileData)
+    const { uniqueIps, uniqueUrls } = parseLogData(uploadFileData)
     console.log(uniqueIps)
     setUniqueIps(uniqueIps)
     setTotalUniqueIps(Object.keys(uniqueIps).length)
+    setUniqueUrls(uniqueUrls)
   }
 
   return (
@@ -40,6 +42,14 @@ const App = () => {
               .splice(0, 3)
               .map((key) => {
                 return <li key={key}>{uniqueIps[key]?.ip}</li>
+              })}
+          </ol>
+          <p>Top 3 most visited URLs</p>
+          <ol>
+            {Object.keys(uniqueUrls)
+              .splice(0, 3)
+              .map((key) => {
+                return <li key={key}>{uniqueUrls[key]?.url}</li>
               })}
           </ol>
         </div>
