@@ -1,5 +1,7 @@
 import React from "react"
 import FileUpload from "./components/FileUpload/FileUpload"
+
+import { parseLogData } from "./util/logParser"
 import "./App.css"
 
 const App = () => {
@@ -11,8 +13,7 @@ const App = () => {
       return
     }
     const uploadFileData = await new Response(files[0]).text()
-
-    console.log(uploadFileData)
+    parseLogData(uploadFileData)
   }
 
   return (
