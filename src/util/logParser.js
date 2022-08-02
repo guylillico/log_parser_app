@@ -1,3 +1,13 @@
+export const orderByCount = (obj) => {
+  const orderedItemsObj = {}
+  const arr = Object.keys(obj).map((key) => obj[key])
+  arr.sort((a, b) => {
+    return b.count - a.count
+  })
+  arr.forEach((item, index) => (orderedItemsObj[index] = { ...item }))
+  return orderedItemsObj
+}
+
 export const generateUniqueIpsObj = (dataArray) => {
   const uniqueIpsObj = {}
   const ipRegex = /\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(.|$)){4}\b/
@@ -18,7 +28,7 @@ export const generateUniqueIpsObj = (dataArray) => {
     }
   })
 
-  return uniqueIpsObj
+  return orderByCount(uniqueIpsObj)
 }
 
 export const parseLogData = (file) => {
