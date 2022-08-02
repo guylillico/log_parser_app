@@ -5,7 +5,7 @@ const FeaturedMetric = ({ title, children }) => {
   return (
     <StyledMetric>
       <div className="inner">
-        <h4>{title}</h4>
+        <h4 data-testid="metric-title">{title}</h4>
         <div>{children}</div>
       </div>
     </StyledMetric>
