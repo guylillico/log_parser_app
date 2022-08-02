@@ -31,11 +31,36 @@ export const generateUniqueIpsObj = (dataArray) => {
   return orderByCount(uniqueIpsObj)
 }
 
+export const generateUniqueUrlsObj = (dataArray) => {
+  const uniqueUrlsObj = {}
+  // Match response path using positive lookahead
+  const urlRegex = /[^\s]+(?=\s+HTTP)/
+  dataArray.forEach((item) => {
+    const matchUrl = item.match(urlRegex)
+    let url = matchUrl && matchUrl.length ? matchUrl[0].replace("http://example.net", "") : null
+
+    if (!url) return
+    if (uniqueUrlsObj[url]) {
+      uniqueUrlsObj[url]["count"]++
+    } else {
+      uniqueUrlsObj[url] = {
+        count: 1,
+        url: url,
+      }
+    }
+  })
+  return orderByCount(uniqueUrlsObj)
+}
+
 export const parseLogData = (file) => {
   const fileData = file.split("\n")
   const uniqueIps = generateUniqueIpsObj(fileData)
-  // console.log(uniqueIps)
+  const uniqueUrls = generateUniqueUrlsObj(fileData)
+
+  console.log(uniqueUrls)
+
   return {
     uniqueIps,
+    uniqueUrls,
   }
 }
