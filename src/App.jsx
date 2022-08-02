@@ -19,7 +19,7 @@ const App = () => {
     }
     const uploadFileData = await new Response(files[0]).text()
     const { uniqueIps, uniqueUrls } = parseLogData(uploadFileData)
-    console.log(uniqueIps)
+
     setUniqueIps(uniqueIps)
     setTotalUniqueIps(Object.keys(uniqueIps).length)
     setUniqueUrls(uniqueUrls)
@@ -65,6 +65,7 @@ const App = () => {
               header={["IP", "No. of Requests"]}
               body={uniqueIps}
             />
+            <MetricsTable title="Requests per URL" metric="url" header={["URL", "No. of Requests"]} body={uniqueUrls} />
           </React.Fragment>
         )}
       </div>
