@@ -1,5 +1,7 @@
 import React from "react"
 import FileUpload from "./components/FileUpload/FileUpload"
+import FeaturedMetricsWrapper from "./components/FeaturedMetricsWrapper/FeaturedMetricsWrapper"
+import FeaturedMetric from "./components/FeaturedMetric/FeaturedMetric"
 
 import { parseLogData } from "./util/logParser"
 import "./App.css"
@@ -33,26 +35,29 @@ const App = () => {
 
       {error && <p>{error}</p>}
       {!error && Object.keys(uniqueIps).length > 0 && (
-        <div>
-          <p>Total unique IP addresses</p>
-          <span>{totalUniqueIps}</span>
-          <p>Top 3 most active IP addresses</p>
-          <ol>
-            {Object.keys(uniqueIps)
-              .splice(0, 3)
-              .map((key) => {
-                return <li key={key}>{uniqueIps[key]?.ip}</li>
-              })}
-          </ol>
-          <p>Top 3 most visited URLs</p>
-          <ol>
-            {Object.keys(uniqueUrls)
-              .splice(0, 3)
-              .map((key) => {
-                return <li key={key}>{uniqueUrls[key]?.url}</li>
-              })}
-          </ol>
-        </div>
+        <FeaturedMetricsWrapper>
+          <FeaturedMetric title="Total unique IP addresses">
+            <span>{totalUniqueIps}</span>
+          </FeaturedMetric>
+          <FeaturedMetric title="Top 3 most active IP addresses">
+            <ol>
+              {Object.keys(uniqueIps)
+                .splice(0, 3)
+                .map((key) => {
+                  return <li key={key}>{uniqueIps[key]?.ip}</li>
+                })}
+            </ol>
+          </FeaturedMetric>
+          <FeaturedMetric title="Top 3 most visited URLs">
+            <ol>
+              {Object.keys(uniqueUrls)
+                .splice(0, 3)
+                .map((key) => {
+                  return <li key={key}>{uniqueUrls[key]?.url}</li>
+                })}
+            </ol>
+          </FeaturedMetric>
+        </FeaturedMetricsWrapper>
       )}
     </div>
   )
