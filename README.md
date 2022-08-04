@@ -38,6 +38,6 @@ Launches the test runner in the interactive watch mode.
 
 - Assumes log file entries are in a valid format
 - IP address regex matching may need some improvement
-- The requirement to show 'Top 3' metrics is a little ambiguous for edge cases where the number of distinct count values are <= 3, such as in the test data log file
+- The requirement to show 'Top 3' metrics is a little ambiguous for edge cases where the 3rd sorted record has the same count value as the 4th, such as in the `programming-task-example-data.log` test log file
 - Same base URL assumed for all response paths/URLs
 - Hash map solution used to reference the distinct IPs and URLs along with their count values
